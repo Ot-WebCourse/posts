@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Заголовок сторінки</title>
+<meta charset="utf-8"></meta>
+<!-- Latest compiled and minified CSS
+		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"></link>  -->
+<link rel="stylesheet" href="/posts/core/css/bootstrap/bootstrap.min.css"></link>
+<!-- Optional theme 
+		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css"></link> -->
+<link rel="stylesheet" href="/posts/core/css/bootstrap/bootstrap-theme.min.css"></link>
+<!-- Latest compiled and minified JavaScript
+		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>  -->
+<link rel="stylesheet" href="/posts/core/js/bootstrap/bootstrap.min.js"></link>
+<style>
+.container:after {
+	margin-bottom: 40px;
+}
+</style>
+</head>
+<body>
+	<div class="container">
+		<div th:if="${posts.isEmpty()}">Постів немає</div>
+		<div class="row" th:each="post: ${posts}">
+			<hr />
+			<strong class="pull-left primary-font" th:text="${post.author}">Логін</strong>
+			<small class="pull-right text-muted"> <span
+				class="glyphicon glyphicon-time"></span> <span
+				th:text="${#dates.format(post.createdAt, 'HH:mm dd.MM.yy')}">19:05
+					14.05.14</span>
+			</small> <br />
+			<div class="text-justify"
+				th:text="${post.text.isEmpty()} ? '[Пусте повідомлення]' : ${post.text}">Текст
+				повідомлення</div>
+		</div>
+	</div>
+	<div class="container">
+		<div class="well">
+			<div class="row">
+				<form method="POST" action="/posts/post" style=" margin: 0 20px;">
+					<div class="form-group">
+						<label for="post-text">Що нового?</label>
+						<textarea class="form-control" rows="3" name="text" id="post-text" style="resize:none;"></textarea>
+					</div>
+					<button type="submit" class="btn btn-success">Додати</button>
+				</form>
+			</div>
+		</div>
+	</div>
+
+
+</body>
+</html>
